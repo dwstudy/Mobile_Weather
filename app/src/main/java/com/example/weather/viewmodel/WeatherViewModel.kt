@@ -2,10 +2,10 @@ package com.example.weather.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.weather_forecast.data.City
-import com.example.weather_forecast.data.CITIES
-import com.example.weather_forecast.repository.WeatherData
-import com.example.weather_forecast.repository.WeatherRepository
+import com.example.weather.data.City
+import com.example.weather.data.CITIES
+import com.example.weather.repository.WeatherData
+import com.example.weather.repository.WeatherRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
