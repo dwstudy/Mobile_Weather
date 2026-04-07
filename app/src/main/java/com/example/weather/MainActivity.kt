@@ -10,7 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        //enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
         // Получаем NavHostFragment и его NavController
