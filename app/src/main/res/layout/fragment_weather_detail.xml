@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAlignment="center"
-                android:text="Влажность: --%" />
+                android:text="@string/humidity" />
 
             <TextView
                 android:id="@+id/wind"
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAlignment="center"
-                android:text="Ветер: -- м/с" />
+                android:text="@string/wind" />
 
             <TextView
                 android:id="@+id/precip_prob"
@@ -56,13 +56,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAlignment="center"
-                android:text="Осадки: --%" />
+                android:text="@string/osadki" />
         </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Почасовой прогноз"
+            android:text="@string/every_hour_predict"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginTop="8dp" />
@@ -78,7 +78,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Прогноз на 7 дней"
+            android:text="@string/predict_for_seven_day"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp" />

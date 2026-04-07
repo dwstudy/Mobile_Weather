@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Weather</string>
+    <string name="humidity">Влажность</string>
+    <string name="wind">Ветер</string>
+    <string name="osadki">Осадки</string>
+    <string name="every_hour_predict">Почасовой прогноз</string>
+    <string name="predict_for_seven_day">Прогноз на 7 дней</string>
 </resources>
