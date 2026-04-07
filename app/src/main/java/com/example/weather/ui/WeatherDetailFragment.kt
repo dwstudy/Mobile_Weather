@@ -7,9 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.weather.R
-import com.example.weather.data.City
 import com.example.weather.data.CITIES
 import com.example.weather.databinding.FragmentWeatherDetailBinding
 import com.example.weather.ui.adapters.DailyForecastAdapter
@@ -24,14 +23,6 @@ class WeatherDetailFragment : Fragment() {
     private var _binding: FragmentWeatherDetailBinding? = null
     private val binding get() = _binding!!
     private val viewModel: WeatherViewModel by viewModels()
-    private var cityId: Int = -1
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            cityId = it.getInt(ARG_CITY_ID, -1)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,18 +34,18 @@ class WeatherDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupToolbar()
+
+        // Получаем cityId из аргументов навигации
+        val cityId = arguments?.getInt("cityId") ?: -1
+        val city = CITIES.find { it.id == cityId }
+
         setupRecyclers()
         observeWeather()
-        if (cityId != -1) {
-            val city = CITIES.find { it.id == cityId }
-            city?.let { viewModel.loadWeatherForCity(it) }
-        }
-    }
 
-    private fun setupToolbar() {
-        binding.toolbar.setNavigationOnClickListener {
-            parentFragmentManager.popBackStack()
+        if (city != null) {
+            viewModel.loadWeatherForCity(city)
+        } else {
+            showError("Город не найден")
         }
     }
 
@@ -106,12 +97,5 @@ class WeatherDetailFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        private const val ARG_CITY_ID = "city_id"
-        fun newInstance(cityId: Int) = WeatherDetailFragment().apply {
-            arguments = Bundle().apply { putInt(ARG_CITY_ID, cityId) }
-        }
     }
 }

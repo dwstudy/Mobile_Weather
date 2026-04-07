@@ -15,6 +15,7 @@ import com.example.weather.viewmodel.WeatherViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import com.example.weather.MainActivity
+import androidx.navigation.fragment.findNavController
 
 class CityListFragment : Fragment() {
 
@@ -44,8 +45,10 @@ class CityListFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.cities.collectLatest { cities ->
                 val adapter = CityAdapter(cities) { city ->
-                    // Переход на детальный экран
-                    (activity as? MainActivity)?.showWeatherDetail(city.id)
+                    val bundle = Bundle().apply {
+                        putInt("cityId", city.id)
+                    }
+                    findNavController().navigate(R.id.action_cityListFragment_to_weatherDetailFragment, bundle)
                 }
                 binding.citiesRecycler.adapter = adapter
             }
