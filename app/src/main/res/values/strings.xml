@@ -5,4 +5,24 @@
     <string name="osadki">Осадки</string>
     <string name="every_hour_predict">Почасовой прогноз</string>
     <string name="predict_for_seven_day">Прогноз на 7 дней</string>
+
+    <!-- Погодные описания -->
+    <string name="weather_clear">Ясно</string>
+    <string name="weather_mostly_clear">Преимущественно ясно</string>
+    <string name="weather_partly_cloudy">Переменная облачность</string>
+    <string name="weather_overcast">Пасмурно</string>
+    <string name="weather_fog">Туман</string>
+    <string name="weather_rime">Изморозь</string>
+    <string name="weather_drizzle">Морось</string>
+    <string name="weather_freezing_drizzle">Ледяная морось</string>
+    <string name="weather_rain">Дождь</string>
+    <string name="weather_freezing_rain">Ледяной дождь</string>
+    <string name="weather_snow">Снег</string>
+    <string name="weather_snow_grains">Снежные зёрна</string>
+    <string name="weather_shower">Ливень</string>
+    <string name="weather_snow_shower">Снежный ливень</string>
+    <string name="weather_thunderstorm">Гроза</string>
+    <string name="weather_thunderstorm_hail">Гроза с градом</string>
+    <string name="weather_unknown">Неизвестно</string>
+    <string name="city_not_found">Город не найден</string>
 </resources>

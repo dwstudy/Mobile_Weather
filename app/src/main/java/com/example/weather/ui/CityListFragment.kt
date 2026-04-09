@@ -16,12 +16,20 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import com.example.weather.MainActivity
 import androidx.navigation.fragment.findNavController
+import com.example.weather.network.RetrofitModule
+import com.example.weather.repository.WeatherRepository
+import com.example.weather.repository.WeatherViewModelFactory
 
 class CityListFragment : Fragment() {
 
     private var _binding: FragmentCityListBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: WeatherViewModel by viewModels()
+    private val viewModel: WeatherViewModel by viewModels {
+        val api = RetrofitModule.openMeteoApi
+        val context = requireContext().applicationContext
+        val repository = WeatherRepository(api, context)
+        WeatherViewModelFactory(repository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

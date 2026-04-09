@@ -9,8 +9,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.weather.R
 import com.example.weather.data.CITIES
 import com.example.weather.databinding.FragmentWeatherDetailBinding
+import com.example.weather.network.RetrofitModule
+import com.example.weather.repository.WeatherRepository
+import com.example.weather.repository.WeatherViewModelFactory
 import com.example.weather.ui.adapters.DailyForecastAdapter
 import com.example.weather.ui.adapters.HourlyForecastAdapter
 import com.example.weather.viewmodel.WeatherViewModel
@@ -22,7 +26,12 @@ class WeatherDetailFragment : Fragment() {
 
     private var _binding: FragmentWeatherDetailBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: WeatherViewModel by viewModels()
+    private val viewModel: WeatherViewModel by viewModels {
+        val api = RetrofitModule.openMeteoApi
+        val context = requireContext().applicationContext
+        val repository = WeatherRepository(api, context)
+        WeatherViewModelFactory(repository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +54,7 @@ class WeatherDetailFragment : Fragment() {
         if (city != null) {
             viewModel.loadWeatherForCity(city)
         } else {
-            showError("Город не найден")
+            showError(getString(R.string.city_not_found))
         }
     }
 

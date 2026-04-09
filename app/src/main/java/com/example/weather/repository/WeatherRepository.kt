@@ -1,10 +1,12 @@
 package com.example.weather.repository
 
+import android.content.Context
 import com.example.weather.data.City
 import com.example.weather.data.DailyForecast
 import com.example.weather.data.HourlyForecast
 import com.example.weather.data.WeatherInfo
 import com.example.weather.data.getWeatherDescription
+import com.example.weather.network.OpenMeteoApi
 import com.example.weather.network.RetrofitModule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -12,9 +14,10 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-class WeatherRepository {
-
-    private val api = RetrofitModule.openMeteoApi
+class WeatherRepository(
+    private val api: OpenMeteoApi,
+    private val context: Context
+) {
 
     suspend fun getWeatherForCity(city: City): Result<WeatherData> = withContext(Dispatchers.IO) {
         try {
@@ -28,7 +31,7 @@ class WeatherRepository {
                 WeatherInfo(
                     temperature = cw.temperature,
                     weatherCode = cw.weathercode,
-                    description = getWeatherDescription(cw.weathercode),
+                    description = getWeatherDescription(context,cw.weathercode),
                     windSpeed = cw.windspeed
                 )
             } ?: run {
@@ -36,7 +39,7 @@ class WeatherRepository {
                 WeatherInfo(
                     temperature = response.hourly.temperature.getOrElse(idx) { 0.0 },
                     weatherCode = response.hourly.weathercode.getOrElse(idx) { 0 },
-                    description = getWeatherDescription(response.hourly.weathercode.getOrElse(idx) { 0 }),
+                    description = getWeatherDescription(context,response.hourly.weathercode.getOrElse(idx) { 0 }),
                     humidity = response.hourly.humidity?.getOrNull(idx),
                     windSpeed = response.hourly.windSpeed?.getOrNull(idx),
                     precipitationProbability = response.hourly.precipitationProbability?.getOrNull(idx)
@@ -50,7 +53,7 @@ class WeatherRepository {
                     time = formatHour(time),
                     temperature = temp,
                     weatherCode = code,
-                    description = getWeatherDescription(code)
+                    description = getWeatherDescription(context,code)
                 )
             }
 
@@ -60,7 +63,7 @@ class WeatherRepository {
                     tempMax = response.daily.temperatureMax.getOrElse(i) { 0.0 },
                     tempMin = response.daily.temperatureMin.getOrElse(i) { 0.0 },
                     weatherCode = response.daily.weathercode.getOrElse(i) { 0 },
-                    description = getWeatherDescription(response.daily.weathercode.getOrElse(i) { 0 }),
+                    description = getWeatherDescription(context,response.daily.weathercode.getOrElse(i) { 0 }),
                     precipitationProbability = response.daily.precipitationProbabilityMax?.getOrNull(i)
                 )
             }

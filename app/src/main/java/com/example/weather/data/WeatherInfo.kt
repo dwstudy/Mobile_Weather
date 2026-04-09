@@ -1,5 +1,8 @@
 package com.example.weather.data
 
+import android.content.Context
+import com.example.weather.R
+
 data class WeatherInfo(
     val temperature: Double,
     val weatherCode: Int,
@@ -25,23 +28,25 @@ data class DailyForecast(
     val precipitationProbability: Int? = null
 )
 
-//Погода определяется по статусу. Используем код и выводим текст в интерфейсе
-fun getWeatherDescription(code: Int): String = when (code) {
-    0 -> "Ясно"
-    1 -> "Преимущественно ясно"
-    2 -> "Переменная облачность"
-    3 -> "Пасмурно"
-    45 -> "Туман"
-    48 -> "Изморозь"
-    51, 53, 55 -> "Морось"
-    56, 57 -> "Ледяная морось"
-    61, 63, 65 -> "Дождь"
-    66, 67 -> "Ледяной дождь"
-    71, 73, 75 -> "Снег"
-    77 -> "Снежные зёрна"
-    80, 81, 82 -> "Ливень"
-    85, 86 -> "Снежный ливень"
-    95 -> "Гроза"
-    96, 99 -> "Гроза с градом"
-    else -> "Неизвестно"
+fun getWeatherDescription(context: Context, code: Int): String {
+    val res = context.resources
+    return when (code) {
+        0 -> res.getString(R.string.weather_clear)
+        1 -> res.getString(R.string.weather_mostly_clear)
+        2 -> res.getString(R.string.weather_partly_cloudy)
+        3 -> res.getString(R.string.weather_overcast)
+        45 -> res.getString(R.string.weather_fog)
+        48 -> res.getString(R.string.weather_rime)
+        51, 53, 55 -> res.getString(R.string.weather_drizzle)
+        56, 57 -> res.getString(R.string.weather_freezing_drizzle)
+        61, 63, 65 -> res.getString(R.string.weather_rain)
+        66, 67 -> res.getString(R.string.weather_freezing_rain)
+        71, 73, 75 -> res.getString(R.string.weather_snow)
+        77 -> res.getString(R.string.weather_snow_grains)
+        80, 81, 82 -> res.getString(R.string.weather_shower)
+        85, 86 -> res.getString(R.string.weather_snow_shower)
+        95 -> res.getString(R.string.weather_thunderstorm)
+        96, 99 -> res.getString(R.string.weather_thunderstorm_hail)
+        else -> res.getString(R.string.weather_unknown)
+    }
 }
