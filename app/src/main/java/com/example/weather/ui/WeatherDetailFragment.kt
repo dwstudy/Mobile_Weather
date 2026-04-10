@@ -83,11 +83,12 @@ class WeatherDetailFragment : Fragment() {
 
     private fun displayWeatherData(data: com.example.weather.repository.WeatherData) {
         with(binding) {
-            currentTemp.text = "${data.current.temperature.toInt()}°C"
             currentDesc.text = data.current.description
-            humidity.text = "Влажность: ${data.current.humidity ?: "--"}%"
-            wind.text = "Ветер: ${data.current.windSpeed ?: "--"} м/с"
-            precipProb.text = "Осадки: ${data.current.precipitationProbability ?: "--"}%"
+
+            currentTemp.text = getString(R.string.temperature_format, data.current.temperature.toInt())
+            humidity.text = getString(R.string.humidity_label, data.current.humidity?.toString() ?: getString(R.string.not_available))
+            wind.text = getString(R.string.wind_label, data.current.windSpeed?.toString() ?: getString(R.string.not_available))
+            precipProb.text = getString(R.string.precipitation_label, data.current.precipitationProbability?.toString() ?: getString(R.string.not_available))
 
             hourlyRecycler.adapter = HourlyForecastAdapter(data.hourly)
             dailyRecycler.adapter = DailyForecastAdapter(data.daily)

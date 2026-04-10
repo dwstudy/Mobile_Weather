@@ -25,4 +25,10 @@
     <string name="weather_thunderstorm_hail">Гроза с градом</string>
     <string name="weather_unknown">Неизвестно</string>
     <string name="city_not_found">Город не найден</string>
+
+    <string name="temperature_format">%d°C</string>
+    <string name="humidity_label">Влажность: %s%%</string>
+    <string name="wind_label">Ветер: %s м/с</string>
+    <string name="precipitation_label">Осадки: %s%%</string>
+    <string name="not_available">--</string>
 </resources>
