@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/cityListFragment">
+
+    <fragment
+        android:id="@+id/cityListFragment"
+        android:name="com.example.weather.ui.CityListFragment"
+        android:label="Список городов"
+        tools:layout="@layout/fragment_city_list" />
+
+    <action
+        android:id="@+id/action_cityListFragment_to_weatherDetailFragment"
+        app:destination="@id/weatherDetailFragment" />
+
+    <fragment
+        android:id="@+id/weatherDetailFragment"
+        android:name="com.example.weather.ui.WeatherDetailFragment"
+        android:label="Прогноз погоды"
+        tools:layout="@layout/fragment_weather_detail">
+        <argument
+            android:name="cityId"
+            app:argType="integer" />
+    </fragment>
+</navigation>
